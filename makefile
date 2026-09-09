@@ -1,4 +1,4 @@
-CC = gcc
+CC = g++
 CFLAGS = -Wall -Wextra -g
 TARGET = myshell
 OBJS = myshell.o parse.o process.o
@@ -8,14 +8,14 @@ all: $(TARGET)
 $(TARGET): $(OBJS)
 	$(CC) $(CFLAGS) -o $@ $(OBJS)
 
-myshell.o: myshell.c parse.h process.h
-	$(CC) $(CFLAGS) -c myshell.c
+myshell.o: myshell.cpp parse.hpp process.hpp
+	$(CC) $(CFLAGS) -c myshell.cpp
 
-parse.o: parse.c parse.h
-	$(CC) $(CFLAGS) -c parse.c
+parse.o: parse.cpp parse.hpp
+	$(CC) $(CFLAGS) -c parse.cpp
 
-process.o: process.c process.h
-	$(CC) $(CFLAGS) -c process.c
+process.o: process.cpp process.hpp
+	$(CC) $(CFLAGS) -c process.cpp
 
 run: $(TARGET)
 	./$(TARGET)

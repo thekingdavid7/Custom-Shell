@@ -10,8 +10,6 @@ int main()
     cout << "Type 'help' for commands." << endl;
     Parse parse;
     Process process;
-    Parse::function1();
-    Process::function1();
-
-    return 0;
+    parse.function1();
+    process.function1();
 }
