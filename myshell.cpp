@@ -1,15 +1,19 @@
 #include <iostream>
-using namespace std;
 
 #include "parse.hpp"
 #include "process.hpp"
 
-int main()
+int main(void)
 {
-    cout << "Custom Shell v1.0" << endl;
-    cout << "Type 'help' for commands." << endl;
+    //loop $$$
+    cout << "$$$";
+    //get input from user
+    string input;
+    cin >> input;
+    
     Parse parse;
     Process process;
-    parse.function1();
-    process.function1();
+
+
+    return 0;
 }

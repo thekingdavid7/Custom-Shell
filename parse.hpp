@@ -10,10 +10,13 @@ class Parse
         Parse();
         ~Parse();
         
-        void function1();
-        
+        void tokenParse(const string& input);
+
     private:
-        string function2(const string& input);
+
+        string currentToken;
+        vector<Token> tokens;
+
 };
 
 #endif

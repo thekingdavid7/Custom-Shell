@@ -1,4 +1,8 @@
 #include "parse.hpp"
+#include <vector>
+#include <iostream>
+#include <string>
+#include <cctype>
 using namespace std;
 
 Parse::Parse()
@@ -11,8 +15,79 @@ Parse::~Parse()
     
 }
 
-void Parse::function1()
-{
-    cout << "Parse::function1() called" << endl;
+//This was me trying to figure out how to parse the input string into tokens
+//this is written in c++, idk if he wants it in c++ or c for this part but it is much easier
+//in c++, or so ive been told. Also it gives an error becuase token isnt a class so i cant return a vector<token>
+enum class TokenType {
+    WORD,
+    PIPE,
+    REDIRECT_IN,
+    REDIRECT_OUT,
+    APPENDOUT,
+    BACKGROUND,
+    ERROR
+};
+
+struct Token {
+    TokenType type;
+    string value;
+};
+
+vector<Token> tokenize(const string& input) {
+    vector<Token> tokens;
+    string currentToken;
+    bool inQuotes = false;
+
+    for (char c : input) {
+        if (c == '"') {
+            inQuotes = !inQuotes;
+            continue;
+        }
+
+        if (isspace(c) && !inQuotes) {
+            if (!currentToken.empty()) {
+                tokens.push_back({TokenType::WORD, currentToken});
+                currentToken.clear();
+            }
+        } else if (!inQuotes && (c == '|' || c == '<' || c == '>' || c == '&')) {
+            if (!currentToken.empty()) {
+                tokens.push_back({TokenType::WORD, currentToken});
+                currentToken.clear();
+            }
+            TokenType type;
+            switch (c) {
+                case '|': type = TokenType::PIPE; break;
+                case '<': type = TokenType::REDIRECT_IN; break;
+                case '>': type = TokenType::REDIRECT_OUT; break;
+                case '&': type = TokenType::BACKGROUND; break;
+                default: type = TokenType::ERROR; break;
+            }
+            tokens.push_back({type, string(1, c)});
+        } else {
+            currentToken += c;
+        }
+    }
+    if (!currentToken.empty()) {
+        tokens.push_back({TokenType::WORD, currentToken});
+    }
+
+    return tokens;
 }
+
+
+
+void Parse::tokenParse(const string& input)
+{
+    
+
+    
+
+    
+}
+
+
+
+
+
+
 
