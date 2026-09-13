@@ -2,6 +2,7 @@
 #define PARSE_HPP
 
 #include <iostream>
+#include <vector>
 using namespace std;
 
 class Parse
@@ -10,12 +11,12 @@ class Parse
         Parse();
         ~Parse();
         
-        void tokenParse(const string& input);
+        vector<string> tokenize(const string& input);
 
     private:
 
-        string currentToken;
-        vector<Token> tokens;
+        // string currentToken;
+        // vector<Token> tokens;
 
 };
 
