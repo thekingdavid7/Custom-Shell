@@ -3,15 +3,15 @@
 
 #include <iostream>
 #include <vector>
+#include "param.hpp"
 using namespace std;
-
 class Parse
 {
     public:
         Parse();
         ~Parse();
         
-        vector<string> tokenize(const string& input);
+        vector<string> tokenize(const string& input, Param& param);
 
     private:
 

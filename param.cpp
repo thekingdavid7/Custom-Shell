@@ -5,12 +5,8 @@
  *  Copyright 2009 UWF - CS. All rights reserved.
  *
  */
-
-#ifndef _PARAM_H
-#define _PARAM_H
-
-#include "param.hpp"
 #include <iostream>
+#include "param.hpp"
 using namespace std;
 
 Param::Param() 
@@ -91,5 +87,3 @@ void Param::printParams() {
 			 << "]" 
 			 << endl;
 }
-
-#endif

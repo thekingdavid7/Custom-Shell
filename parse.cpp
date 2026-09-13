@@ -3,6 +3,7 @@
 #include <string>
 #include <cctype>
 #include <cstring> //strtok
+#include "param.hpp"
 #include "parse.hpp"
 using namespace std;
 
@@ -36,7 +37,7 @@ enum class TokenType
 //     string value;
 // };
 
-vector<string> Parse::tokenize(const string& input)
+vector<string> Parse::tokenize(const string& input, Param& param)
 {
     vector<string> tokens;
     char *cstr = new char[input.length() + 1]; //pointer starting at the beginning of the input string
@@ -51,6 +52,51 @@ vector<string> Parse::tokenize(const string& input)
     }
 
     delete[] cstr; //free the memory allocated for cstr
+
+    //this is not perfect and I have not tested this part, but try to test it when you work on Param
+    for (size_t i = 0; i < tokens.size(); i++)
+    {
+        cout << tokens[i] << endl; //print each token to the console
+
+        string token = tokens[i];
+
+        if (token[0] == '<')
+        {
+            if (token.length() > 1)
+            {   
+                //if token length is > 1, the filename is attached to the '<' character, so we need to extract it
+                //substring returns the string after '<' and c_str() returns a pointer to the beginning of the string
+                //const_cast<char*> is used to remove the const qualifier from the pointer returned by c_str()
+                param.setInputRedirect(const_cast<char*>(token.substr(1).c_str()));
+            }
+            else if (i + 1 < tokens.size())
+            {
+                //if token length is 1, the filename is the next token in the list, so we need to get it from there
+                param.setInputRedirect(const_cast<char*>(tokens[i + 1].c_str()));
+                i++; // Skip the next token since it's the filename
+            }
+        }
+        else if (token[0] == '>')
+        {
+            if (token.length() > 1)
+            {
+                param.setOutputRedirect(const_cast<char*>(token.substr(1).c_str()));
+            }
+            else if (i + 1 < tokens.size())
+            {
+                param.setOutputRedirect(const_cast<char*>(tokens[i + 1].c_str()));
+                i++; // Skip the next token since it's the filename
+            }
+        }
+        else if (token[token.length() - 1] == '&')
+        {
+            param.setBackground(1);
+        }
+        else
+        {
+            param.addArgument(const_cast<char*>(tokens[i].c_str()));
+        }
+    }
 
     // vector<string> tokens;
     // string currentToken;

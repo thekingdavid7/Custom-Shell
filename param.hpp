@@ -31,7 +31,7 @@ class Param
 		
 		/**
 		 * Adds an argument string to the argument list in this object. This function
-		 * does not create a string copy of the original string. 
+		 * does not create a string copy of the original string.
 		 * 
          * @param newArgument a new argument to be added to the argument list; 
 		 *                    if NULL nothing will be added		 
