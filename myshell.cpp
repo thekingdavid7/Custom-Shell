@@ -6,10 +6,11 @@
 #include "process.hpp"
 using namespace std;
 
-int main(void)
+int main(int argc, char *argv[])
 {
     string input = "";
     Parse parse;
+    bool debug = argc > 1 && string(argv[1]) == "-Debug";
 
     cout << "$$$ ";
     getline(cin, input);
@@ -19,10 +20,8 @@ int main(void)
         Param param;
         vector<string> tokens = parse.tokenize(input, param);
 
-        // for (size_t i = 0; i < tokens.size(); i++)
-        // {
-        //     cout << tokens[i] << endl; //print each token to the console
-        // }
+        if (debug)
+            param.printParams();
 
         cout << "$$$ ";
         getline(cin, input);

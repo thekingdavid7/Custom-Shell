@@ -28,6 +28,11 @@ class Param
 		 * Constructs an empty Param object.
 		 */
 		Param(); 
+
+		/**
+		 * Releases filenames owned by this object.
+		 */
+		~Param();
 		
 		/**
 		 * Adds an argument string to the argument list in this object. This function

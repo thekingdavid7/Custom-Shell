@@ -56,8 +56,6 @@ vector<string> Parse::tokenize(const string& input, Param& param)
     //this is not perfect and I have not tested this part, but try to test it when you work on Param
     for (size_t i = 0; i < tokens.size(); i++)
     {
-        cout << tokens[i] << endl; //print each token to the console
-
         string token = tokens[i];
 
         if (token[0] == '<')
