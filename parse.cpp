@@ -58,6 +58,8 @@ vector<string> Parse::tokenize(const string& input, Param& param)
     {
         string token = tokens[i];
 
+        
+
         if (token[0] == '<')
         {
             if (token.length() > 1)
@@ -86,52 +88,20 @@ vector<string> Parse::tokenize(const string& input, Param& param)
                 i++; // Skip the next token since it's the filename
             }
         }
-        else if (token[token.length() - 1] == '&')
+        else if (tokens[tokens.size() - 1] == "&")
         {
             param.setBackground(1);
+        }
+        else if (token[0] == '&')
+        {
+            cerr << "Error: '&' must be at the end of the command." << endl;
+            return vector<string>(); // Return an empty vector to indicate an error
         }
         else
         {
             param.addArgument(const_cast<char*>(tokens[i].c_str()));
         }
     }
-
-    // vector<string> tokens;
-    // string currentToken;
-    // bool inQuotes = false;
-
-    // for (char c : input) {
-    //     if (c == '"') {
-    //         inQuotes = !inQuotes;
-    //         continue;
-    //     }
-
-    //     if (isspace(c) && !inQuotes) {
-    //         if (!currentToken.empty()) {
-    //             tokens.push_back({TokenType::WORD, currentToken});
-    //             currentToken.clear();
-    //         }
-    //     } else if (!inQuotes && (c == '|' || c == '<' || c == '>' || c == '&')) {
-    //         if (!currentToken.empty()) {
-    //             tokens.push_back({TokenType::WORD, currentToken});
-    //             currentToken.clear();
-    //         }
-    //         TokenType type;
-    //         switch (c) {
-    //             case '|': type = TokenType::PIPE; break;
-    //             case '<': type = TokenType::REDIRECT_IN; break;
-    //             case '>': type = TokenType::REDIRECT_OUT; break;
-    //             case '&': type = TokenType::BACKGROUND; break;
-    //             default: type = TokenType::ERROR; break;
-    //         }
-    //         tokens.push_back({type, string(1, c)});
-    //     } else {
-    //         currentToken += c;
-    //     }
-    // }
-    // if (!currentToken.empty()) {
-    //     tokens.push_back({TokenType::WORD, currentToken});
-    // }
 
     return tokens; //return the mutable copy of the input string
 }
