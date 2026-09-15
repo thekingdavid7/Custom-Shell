@@ -88,14 +88,17 @@ vector<string> Parse::tokenize(const string& input, Param& param)
                 i++; // Skip the next token since it's the filename
             }
         }
-        else if (tokens[tokens.size() - 1] == "&")
+        else if (token == "&")
         {
-            param.setBackground(1);
-        }
-        else if (token[0] == '&')
-        {
-            cerr << "Error: '&' must be at the end of the command." << endl;
-            return vector<string>(); // Return an empty vector to indicate an error
+            if (i == tokens.size() - 1) // Check if '&' is the last token
+            {
+                param.setBackground(1);
+            }
+            else
+            {
+                cerr << "Error: '&' must be at the end of the command." << endl;
+                return vector<string>(); // Return an empty vector to indicate an error
+            }
         }
         else
         {
