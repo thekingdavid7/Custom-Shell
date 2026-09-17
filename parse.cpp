@@ -1,8 +1,3 @@
-#include <vector>
-#include <iostream>
-#include <string>
-#include <cctype>
-#include <cstring> //strtok
 #include "param.hpp"
 #include "parse.hpp"
 using namespace std;
@@ -10,11 +5,6 @@ using namespace std;
 Parse::Parse()
 {
 
-}
-
-Parse::~Parse()
-{
-    
 }
 
 //This was me trying to figure out how to parse the input string into tokens

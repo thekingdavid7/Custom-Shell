@@ -2,6 +2,11 @@
 #define PROCESS_HPP
 
 #include <iostream>
+#include <stdio.h>
+#include <sys/types.h>
+#include <unistd.h>
+#include <sys/wait.h>
+#include "param.hpp"
 using namespace std;
 
 class Process
@@ -10,10 +15,10 @@ class Process
         Process();
         ~Process();
         
-        void function1();
+        void executeCommand(Param& param); //pass by reference NOT copy
         
     private:
-        string function2(const string& input);
+    
 };
 
 #endif

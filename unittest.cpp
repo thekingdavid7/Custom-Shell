@@ -22,7 +22,7 @@ void testArguments()
         assert(tokens[i] == param.getArguments()[i]);
     }
 
-    cout << "Test Pass!" << endl;
+    cout << endl << "Test Pass!" << endl;
     cout << "____________________________________________________________" << endl;
 }
 
@@ -39,7 +39,7 @@ void testInputRedirect()
     assert(param.getInputRedirect() == string("3"));
     cout << "Input redirect: " << param.getInputRedirect() << endl;
 
-    cout << "Test Pass!" << endl;
+    cout << endl << "Test Pass!" << endl;
     cout << "____________________________________________________________" << endl;
 }
 
@@ -56,7 +56,7 @@ void testOutputRedirect()
     assert(param.getOutputRedirect() == string("3"));
     cout << "Output redirect: " << param.getOutputRedirect() << endl;
 
-    cout << "Test Pass!" << endl;
+    cout << endl << "Test Pass!" << endl;
     cout << "____________________________________________________________" << endl;
 }
 
@@ -72,7 +72,7 @@ void testBackground()
     
     assert(param.getBackground() == 1);
 
-    cout << "Test Pass!" << endl;
+    cout << endl << "Test Pass!" << endl;
     cout << "____________________________________________________________" << endl;
 }
 
@@ -92,8 +92,13 @@ void testFailingInput()
     assert(param.getBackground() == 0);
 
 
-    cout << "Test Pass!" << endl;
+    cout << endl << "Test Pass!" << endl;
     cout << "____________________________________________________________" << endl;
+}
+
+void testMispelling()
+{
+    //FIXME : recognize typos
 }
 
 int main()

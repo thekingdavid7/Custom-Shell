@@ -10,6 +10,7 @@ int main(int argc, char *argv[])
 {
     string input = "";
     Parse parse;
+    //Process process;
     bool debug = argc > 1 && string(argv[1]) == "-Debug";
 
     cout << "$$$ ";

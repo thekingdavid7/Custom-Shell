@@ -2,14 +2,17 @@
 #define PARSE_HPP
 
 #include <iostream>
+#include <string>
 #include <vector>
+#include <string>
+#include <cctype>
+#include <cstring> //strtok
 #include "param.hpp"
 using namespace std;
 class Parse
 {
     public:
         Parse();
-        ~Parse();
         
         vector<string> tokenize(const string& input, Param& param);
 
