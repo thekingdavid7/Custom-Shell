@@ -10,7 +10,7 @@ int main(int argc, char *argv[])
 {
     string input = "";
     Parse parse;
-    //Process process;
+    Process process;
     bool debug = argc > 1 && string(argv[1]) == "-Debug";
 
     cout << "$$$ ";
@@ -23,6 +23,8 @@ int main(int argc, char *argv[])
 
         if (debug)
             param.printParams();
+
+        process.executeCommand(param);
 
         cout << "$$$ ";
         getline(cin, input);

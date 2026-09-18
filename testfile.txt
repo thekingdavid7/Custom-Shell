@@ -1,0 +1,19 @@
+total 3600
+-rw-r--r-- 1 sktru sktru     843 Sep 17 17:48 Makefile
+-rw-r--r-- 1 sktru sktru   13471 Sep 17 17:48 README.md
+-rwxr--r-- 1 sktru sktru 2937497 Sep  8 19:15 grader1.0
+-rwxr-xr-x 1 sktru sktru  220032 Sep 17 18:54 myshell
+-rw-r--r-- 1 sktru sktru     673 Sep 17 18:28 myshell.cpp
+-rw-r--r-- 1 sktru sktru  165072 Sep 17 18:54 myshell.o
+-rw-r--r-- 1 sktru sktru    2755 Sep 17 17:48 param.cpp
+-rw-r--r-- 1 sktru sktru    2346 Sep 17 17:48 param.hpp
+-rw-r--r-- 1 sktru sktru   38512 Sep 17 18:54 param.o
+-rw-r--r-- 1 sktru sktru    3327 Sep 17 17:48 parse.cpp
+-rw-r--r-- 1 sktru sktru     435 Sep 17 17:48 parse.hpp
+-rw-r--r-- 1 sktru sktru  209640 Sep 17 18:54 parse.o
+-rw-r--r-- 1 sktru sktru    1759 Sep 17 18:28 process.cpp
+-rw-r--r-- 1 sktru sktru     396 Sep 17 17:48 process.hpp
+-rw-r--r-- 1 sktru sktru   44720 Sep 17 18:54 process.o
+-rw-r--r-- 1 sktru sktru     237 Sep 17 17:48 slow.cpp
+-rw-r--r-- 1 sktru sktru       0 Sep 17 18:59 testfile.txt
+-rw-r--r-- 1 sktru sktru    2990 Sep 17 18:28 unittest.cpp
