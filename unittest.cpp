@@ -97,41 +97,7 @@ void testFailingInput()
     cout << "____________________________________________________________" << endl;
 }
 
-// void testMispelling()
-// {
-//     string input = "poopy -l";
-//     Param param;
-//     Parse parse;
-//     Process process;
 
-//     cout << "Test Mispelling:" << endl;
-
-//     vector<string> tokens = parse.tokenize(input, param);
-    
-    
-//     //we need to check the output after runnin poopy as a command to process.cpp
-//     assert(process.executeCommand(param) == 1); //assuming executeCommand returns -1 on failure
-    
-
-
-//     cout << endl << "Test Pass!" << endl;
-//     cout << "____________________________________________________________" << endl;
-// }
-
-void testRedirection()
-{
-    //FIXME : recognize redirection
-}
-
-void testBackgroundExecution()
-{
-    //FIXME : recognize background execution
-}
-
-void testCommandExecution()
-{
-    //FIXME : recognize command execution
-}
 
 int main()
 {
