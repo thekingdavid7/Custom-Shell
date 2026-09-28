@@ -12,7 +12,10 @@
 /* Don't test program with more than this many tokens for input  */
 #define MAXARGS 32
 
-/* Class to hold input data                                  */
+/* Class to hold input data.
+ * This object collects the command arguments and shell features such as
+ * input/output redirection and background execution before execution begins.
+ */
 class Param
 {
 	private:

@@ -10,6 +10,9 @@
 #include "param.hpp"
 using namespace std;
 
+// The Param object stores the shell command metadata that is later used by the
+// process layer. It tracks the executable, arguments, redirect targets, and
+// whether the command should run in the background.
 Param::Param() 
 {
 	inputRedirect = outputRedirect = NULL;

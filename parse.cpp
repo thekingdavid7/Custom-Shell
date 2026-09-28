@@ -7,9 +7,10 @@ Parse::Parse()
 
 }
 
-//This was me trying to figure out how to parse the input string into tokens
-//this is written in c++, idk if he wants it in c++ or c for this part but it is much easier
-//in c++, or so ive been told. Also it gives an error becuase token isnt a class so i cant return a vector<token>
+// This tokenizer is intentionally lightweight: it splits on spaces and then
+// interprets special shell symbols such as <, >, and & in the resulting tokens.
+// A more advanced implementation would use a full shell grammar, but this works
+// for the simple command format used by the project.
 enum class TokenType
 {
     WORD,
@@ -30,71 +31,73 @@ enum class TokenType
 vector<string> Parse::tokenize(const string& input, Param& param)
 {
     vector<string> tokens;
-    char *cstr = new char[input.length() + 1]; //pointer starting at the beginning of the input string
-        //make memory to give space for input
-    strcpy(cstr, input.c_str()); //copy input to cstr
 
-    char * p = strtok(cstr, " "); //tokenize the input string by spaces
+    // Copy the input into a C-style buffer so strtok can be used safely.
+    char *cstr = new char[input.length() + 1];
+    strcpy(cstr, input.c_str());
+
+    // Split the command line on spaces; this preserves each token in order.
+    char *p = strtok(cstr, " ");
     while (p != 0)
     {
-        tokens.push_back(string(p)); //add the word to list
-        p = strtok(NULL, " "); //continue scanning cstr
+        tokens.push_back(string(p));
+        p = strtok(NULL, " ");
     }
 
-    delete[] cstr; //free the memory allocated for cstr
+    delete[] cstr;
 
-    //this is not perfect and I have not tested this part, but try to test it when you work on Param
+    // Inspect each token and update the Param object with command metadata.
     for (size_t i = 0; i < tokens.size(); i++)
     {
         string token = tokens[i];
 
-        
-
         if (token[0] == '<')
         {
             if (token.length() > 1)
-            {   
-                //if token length is > 1, the filename is attached to the '<' character, so we need to extract it
-                //substring returns the string after '<' and c_str() returns a pointer to the beginning of the string
-                //const_cast<char*> is used to remove the const qualifier from the pointer returned by c_str()
+            {
+                // Input redirection may be written as "<file" in a single token.
                 param.setInputRedirect(const_cast<char*>(token.substr(1).c_str()));
             }
             else if (i + 1 < tokens.size())
             {
-                //if token length is 1, the filename is the next token in the list, so we need to get it from there
+                // Or the file path may be the following token: "< file".
                 param.setInputRedirect(const_cast<char*>(tokens[i + 1].c_str()));
-                i++; // Skip the next token since it's the filename
+                i++; // Skip the filename token after consuming it.
             }
         }
         else if (token[0] == '>')
         {
             if (token.length() > 1)
             {
+                // Output redirection may be written as ">file".
                 param.setOutputRedirect(const_cast<char*>(token.substr(1).c_str()));
             }
             else if (i + 1 < tokens.size())
             {
+                // Or the filename may be the next token: "> file".
                 param.setOutputRedirect(const_cast<char*>(tokens[i + 1].c_str()));
-                i++; // Skip the next token since it's the filename
+                i++; // Skip the filename token after consuming it.
             }
         }
         else if (token == "&")
         {
-            if (i == tokens.size() - 1) // Check if '&' is the last token
+            if (i == tokens.size() - 1)
             {
+                // Background execution is only valid as the final token.
                 param.setBackground(1);
             }
             else
             {
                 cerr << "Error: '&' must be at the end of the command." << endl;
-                return vector<string>(); // Return an empty vector to indicate an error
+                return vector<string>();
             }
         }
         else
         {
+            // Regular command arguments are stored in the Param argument vector.
             param.addArgument(const_cast<char*>(tokens[i].c_str()));
         }
     }
 
-    return tokens; //return the mutable copy of the input string
+    return tokens;
 }

@@ -6,6 +6,8 @@
 
 using namespace std;
 
+// These tests verify the basic shell parsing behavior: arguments, redirects,
+// background execution, and invalid command syntax for the '&' operator.
 void testArguments()
 {
     string input = "one two three";
@@ -101,6 +103,7 @@ void testFailingInput()
 
 int main()
 {
+    // Run each parser test to confirm core shell functionality works as expected.
     testArguments();
     testInputRedirect();
     testOutputRedirect();

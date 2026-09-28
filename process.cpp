@@ -8,40 +8,37 @@ Process::Process()
 
 Process::~Process()
 {
-    
+
 }
 
 void Process::executeCommand(Param& param)
 {
-    pid_t pid = fork(); //create a child
+    // Fork creates a child process to run the command independently from the shell.
+    pid_t pid = fork();
     int status;
-    //parent = pid > 0
-    //child = pid == 0
 
-    if (pid < 0) //handle fork breaking
+    if (pid < 0)
     {
         cerr << "Fork failed" << endl;
         exit(1);
     }
-    else if (pid == 0) //child process
+    else if (pid == 0)
     {
         char** args = param.getArguments();
 
-        // Handle Output Redirection (>)
+        // Redirect stdout to a file when the user requests output redirection.
         if (param.getOutputRedirect() != NULL)
         {
-            // Redirect stdout to write to output file ("w" mode)
-            if (freopen(param.getOutputRedirect(), "w", stdout) == NULL) //check if freopen works
+            if (freopen(param.getOutputRedirect(), "w", stdout) == NULL)
             {
                 perror("Failed to redirect output");
                 exit(1);
             }
         }
 
-        // Handle Input Redirection (<)
+        // Redirect stdin from a file when the user requests input redirection.
         if (param.getInputRedirect() != NULL)
         {
-            // Redirect stdin to read from an input file ("r" mode)
             if (freopen(param.getInputRedirect(), "r", stdin) == NULL)
             {
                 perror("Failed to redirect input");
@@ -49,17 +46,19 @@ void Process::executeCommand(Param& param)
             }
         }
 
-        execvp(args[0], args); //execute command
-        
-        cerr << "Error executing command: " << args[0] << endl; //if execvp returns, there was an error
+        // Replace the child process with the requested command.
+        execvp(args[0], args);
+
+        cerr << "Error executing command: " << args[0] << endl;
         exit(1);
     }
-    else //parent process
+    else
     {
-        if (!param.getBackground()) //if background is false, wait for child to finish
-        //background determines whether the parent should execute a new command or wait for the child to finish executing the current command
+        // Foreground jobs wait for the child to finish; background jobs return
+        // immediately so the shell can continue accepting new input.
+        if (!param.getBackground())
         {
-            waitpid(pid, &status, 0); //wait for child to finish
+            waitpid(pid, &status, 0);
         }
     }
 }
